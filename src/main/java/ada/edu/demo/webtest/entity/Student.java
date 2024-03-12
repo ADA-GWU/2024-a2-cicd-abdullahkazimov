@@ -27,7 +27,8 @@ public class Student {
     @Size(min=2,max=20)
     String lastName;
 
-    @Email(message="baxan yoxdur gerek ne geldi yazasan?")
+    @Email(message = "baxan yoxdur gerek ne geldi yazasan?")
+    @NotEmpty(message= "bosh qoyacaqssan?")
     String email;
 
     @Column(nullable = false)

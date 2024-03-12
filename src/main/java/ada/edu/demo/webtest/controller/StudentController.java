@@ -30,7 +30,8 @@ public class StudentController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @GetMapping("/")
+    // easier access = /student, /student/
+    @GetMapping({"", "/"})
     public String getIndex() {
         return "student/index";
     }
