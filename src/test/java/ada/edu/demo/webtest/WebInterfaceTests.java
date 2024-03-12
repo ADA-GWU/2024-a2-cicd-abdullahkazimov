@@ -10,6 +10,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.List;
 
+import static org.aspectj.bridge.MessageUtil.fail;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -54,7 +55,7 @@ class WebInterfaceTests {
 		WebElement submitButton = webDriver.findElement(By.id("submit"));
 
 		// Check if submit button exists
-		assertNotNull(submitButton);
+		assertNotNull(submitButton, "Submit button is not found.");
 
 		submitButton.click();
 	}
@@ -79,5 +80,43 @@ class WebInterfaceTests {
 		assert(bodyElementFName.size() == 1);
 		assert(bodyElementLName.size() == 1);
 	}
+
+	@Test
+	@Order(3)
+	@DisplayName("Update the user information")
+	public void UpdateUser() {
+		// Check if user is updated
+		webDriver.get("http://localhost:" + port + "/student/update?id=1");
+
+		WebElement firstNameInput = webDriver.findElement(By.id("firstName"));
+		assertNotNull(firstNameInput, "First name input field is not found.");
+
+		try {
+			firstNameInput.clear();
+			firstNameInput.sendKeys("Kamal");
+			Thread.sleep(2000);
+		} catch (InterruptedException ex) {
+			Thread.currentThread().interrupt();
+			fail("Test interrupted during the update process", ex);
+		}
+
+		WebElement submitButton = webDriver.findElement(By.id("submit"));
+		assertNotNull(submitButton, "Submit button is not found.");
+		submitButton.click();
+
+		webDriver.get("http://localhost:"+port+"/student/list");
+		List<WebElement> bodyElementFName = webDriver.findElements(By.xpath("//*[contains(text(), 'Kamal')]"));
+		System.out.println("Element result"+bodyElementFName);
+
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			throw new RuntimeException(e);
+		}
+
+		// Check if the text "Kamal" is present in the page content [DONE]
+		assert(bodyElementFName.size() == 1);
+	}
+
 
 }
