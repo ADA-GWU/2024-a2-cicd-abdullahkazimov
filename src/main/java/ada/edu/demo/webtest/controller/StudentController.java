@@ -3,7 +3,6 @@ package ada.edu.demo.webtest.controller;
 import ada.edu.demo.webtest.entity.Course;
 import ada.edu.demo.webtest.entity.Student;
 import ada.edu.demo.webtest.repository.CourseRepository;
-import ada.edu.demo.webtest.repository.StudentRepository;
 import ada.edu.demo.webtest.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/student")

@@ -39,11 +39,11 @@ class WebInterfaceTests {
 		try {
 			studentIdInput.sendKeys("1");
 			Thread.sleep(2000);
-			firstNameInput.sendKeys("Nigar");
+			firstNameInput.sendKeys("Jamal");
 			Thread.sleep(2000);
-			lastNameInput.sendKeys("Salayeva");
+			lastNameInput.sendKeys("Hasanov");
 			Thread.sleep(2000);
-			emailInput.sendKeys("ns@ada.edu.az");
+			emailInput.sendKeys("jhasanov@ada.edu.az");
 			Thread.sleep(2000);
 		}
 		catch (Exception ex) {
@@ -52,6 +52,10 @@ class WebInterfaceTests {
 
 		// Find and submit the form (assuming there's a submit button with a specific attribute)
 		WebElement submitButton = webDriver.findElement(By.id("submit"));
+
+		// Check if submit button exists
+		assertNotNull(submitButton);
+
 		submitButton.click();
 	}
 
@@ -61,8 +65,8 @@ class WebInterfaceTests {
 	public void CheckUser() {
 		// Check if the student is added
 		webDriver.get("http://localhost:"+port+"/student/list");
-		List<WebElement> bodyElementFName = webDriver.findElements(By.xpath("//*[contains(text(), 'Nigar')]"));
-		List<WebElement> bodyElementLName = webDriver.findElements(By.xpath("//*[contains(text(), 'Salayeva')]"));
+		List<WebElement> bodyElementFName = webDriver.findElements(By.xpath("//*[contains(text(), 'Jamal')]"));
+		List<WebElement> bodyElementLName = webDriver.findElements(By.xpath("//*[contains(text(), 'Jamal')]"));
 		System.out.println("Element result"+bodyElementLName);
 
 		try {
@@ -71,7 +75,7 @@ class WebInterfaceTests {
 			throw new RuntimeException(e);
 		}
 
-		// Check if the text "Jamal" is present in the page content
+		// Check if the text "Jamal" is present in the page content [DONE]
 		assert(bodyElementFName.size() == 1);
 		assert(bodyElementLName.size() == 1);
 	}

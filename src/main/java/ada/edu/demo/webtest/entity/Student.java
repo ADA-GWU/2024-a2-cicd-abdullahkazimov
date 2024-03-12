@@ -28,7 +28,7 @@ public class Student {
     String lastName;
 
     @Email(message = "baxan yoxdur gerek ne geldi yazasan?")
-    @NotEmpty(message= "bosh qoyacaqssan?")
+    @NotEmpty(message= "bosh qoyacaqsan?")
     String email;
 
     @Column(nullable = false)
